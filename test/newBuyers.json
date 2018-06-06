@@ -1,0 +1,30 @@
+[
+  {
+    "id": "aa",
+    "offers": [
+      {
+        "criteria": {
+          "device": ["mobile"],
+          "hour": [0, 1, 2, 3, 4],
+          "day": [3, 4],
+          "state": ["CA", "FL", "NY"]
+        },
+        "value": 10,
+        "location": "http://0.a.com"
+      },
+      {
+        "criteria": {
+          "device": ["desktop"],
+          "hour": [0, 1, 2, 3, 4],
+          "day": [0, 1, 2, 3, 4],
+          "state": ["CA", "FL", "NY"]
+        },
+        "value": 20,
+        "location": "http://1.a.com"
+      }
+    ]
+  },
+  {
+    "id": "bb"
+  }
+]
