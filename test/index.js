@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test'
 
 var tape = require('tape')
 var map = require('map-async')
-var servertest = require('servertest')
+// // var servertest = require('servertest')
 var request = require('supertest')
 var querystring = require('querystring')
 var buyers = require('./buyers.json')
@@ -28,20 +28,21 @@ tape('should add buyers', function (t) {
 
 tape('should not add invalid buyer', function (t) {
   map(newBuyers, addNewBuyer, function (err) {
+    console.log(err)
   })
   function addNewBuyer (newBuyer, cb) {
     request(server)
       .post('/buyers')
       .send({newBuyer})
       .end(function (err, res) {
-      if (res.statusCode == 201) {
-        t.ok(res.statusCode == 201, 'should not error')
-      } else if (res.statusCode >= 400 && res.statusCode < 500) {
-        t.ok(res.statusCode >= 400, 'error statusCode')
-      } else {
-        t.ifError(err, 'should not error')
-      }
-    })
+        if (res.statusCode === 201) {
+          t.ok(res.statusCode === 201, 'should not error')
+        } else if (res.statusCode >= 400 && res.statusCode < 500) {
+          t.ok(res.statusCode >= 400, 'error statusCode')
+        } else {
+          t.ifError(err, 'should not error')
+        }
+      })
   }
   t.end()
 })
@@ -49,19 +50,19 @@ tape('should not add invalid buyer', function (t) {
 tape('should get buyers', function (t) {
   map(buyers, getBuyer, function (err) {
     t.ifError(err, 'should not error')
-    t.end() 
+    t.end()
   })
 
   function getBuyer (buyer, cb) {
     request(server)
       .get('/buyers/' + buyer.id)
-      .end( function (err, res) {
+      .end(function (err, res) {
         let newbuyer = JSON.parse(res.text)
         if (err) return cb(err)
         t.equal(res.statusCode, 200, 'correct statusCode')
         t.deepEqual(newbuyer, buyer, 'buyer should match')
         cb(null)
-      }) 
+      })
   }
 })
 

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "node test/index.js && standard",
+    "test": "cd test && node index && standard",
     "dev": "budo test/index.js -l -d public -- -t localenvify -t [ babelify --presets [ react es2015 ] ]",
     "build": "NODE_ENV=production browserify test/index.js -t localenvify -t [ babelify --presets [ react es2015 ] ] | uglifyjs -mc > public/index.js",
     "start": "node test/index.js"
